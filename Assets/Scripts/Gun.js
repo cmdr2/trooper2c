@@ -116,14 +116,14 @@ function Update () {
 	} else {
 		// Keep firing while the left mouse button is kept pressed
 //		if (Input.GetButton("Fire1") && Time.time > nextFire) {
-		var triggered : boolean = /*Cardboard.SDK.CardboardTriggered || */Input.GetButton("Fire1");
-		if (EnemySpawnManager.gameInProgress && triggered/* && Time.time > nextFire*/ && Time.time > fireSoundDuration) {
+		var triggered : boolean = Cardboard.SDK.CardboardTriggered || Input.GetButton("Fire1");
+		if (EnemySpawnManager.gameInProgress && triggered && Time.time > nextFire && Time.time > fireSoundDuration) {
 			nextFire = Time.time + fireRateF * 0.3;
 			Fire();
 		}
 		
 		if (Input.GetButtonUp("Fire1")) {
-			bulletQueueCount = 6;
+			bulletQueueCount = 3;
 		}
 		
 		// Start gun sound at first frame of fire button
