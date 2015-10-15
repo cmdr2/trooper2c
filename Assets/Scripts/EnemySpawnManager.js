@@ -39,7 +39,7 @@ private static var miniBossKillScore : int = 50;
 private var initialScorePerEnemy : float = 6; // equal to enemy hitpoints
 private var spawnMonitorIntervalA = 1; // seconds
 private static var maxLives : int = 3;
-private static var PLAYER_FILE = Application.persistentDataPath + Path.DirectorySeparatorChar + "Player";
+private static var PLAYER_FILE = "Player";
 
 
 /* scratchpad */
@@ -177,6 +177,8 @@ function GetMagicLevelDifficultyBonus(levelNumber : int) {
 
 function Awake() {
 	instance = this;
+	
+	PLAYER_FILE = Application.persistentDataPath + Path.DirectorySeparatorChar + "Player";
 	
 	sessionId = guid();
 	
