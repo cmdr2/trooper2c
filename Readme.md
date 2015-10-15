@@ -11,7 +11,7 @@ feel free to contribute or fork to create your own game for personal or commerci
 * install [Unity 5.x](https://unity3d.com/get-unity/download) (free or pro)
 * `git clone git@github.com:cmdr2/trooper2c.git`
 * open the downloaded trooper2c project in Unity
-* press the play button to run
+* press the play button to run in Unity. connect your phone and press Ctrl+B or Cmd+B to run on your phone and see in the Cardboard viewer.
 * `Assets/Scripts/EnemySpawnManager.js` contains the core logic (written in UnityScript (similar to Javascript))
 
 ## publishing to play store
