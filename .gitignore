@@ -1,8 +1,6 @@
 *.meta
 *.DS_Store
 Temp/
-Assembly-CSharp-Editor-firstpass.csproj
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp-firstpass.csproj
-trooper2c.sln
-trooper2c.userprefs
+*.csproj
+*.sln
+*.userprefs
