@@ -4,7 +4,7 @@ simple, first-person zombie shooter for Google Cardboard Virtual Reality viewer,
 
 feel free to contribute or fork to create your own game for personal or commercial use.
 
-*note:* if you seriously intend to fork this for your own purposes, let me know so i can clean up the code a bit to make it easier to read. my contact is at the bottom.
+**note:** if you seriously intend to fork this for your own purposes, let me know so i can clean up the code a bit to make it easier to read. either upvote [this task](https://github.com/cmdr2/trooper2c/issues/1) or use my contact at the bottom.
 
 ## dev environment setup
 * get a Google Cardboard. either search on google for cheaper options in your country, or see this list of [viewers in US/EU](https://www.google.com/get/cardboard/get-cardboard/)
@@ -29,6 +29,6 @@ feel free to contribute or fork to create your own game for personal or commerci
 [MIT](https://github.com/cmdr2/trooper2c/blob/master/LICENSE)
 
 ## contact
-*email:* secondary 'dot' cmdr2 'at' gmail 'dot' com
-*reddit:* [u/cmdr2](http://reddit.com/u/cmdr2)
-*twitter:* [cmdr2](http://twitter.com/cmdr2)
+**email:** secondary 'dot' cmdr2 'at' gmail 'dot' com
+**reddit:** [u/cmdr2](http://reddit.com/u/cmdr2)
+**twitter:** [cmdr2](http://twitter.com/cmdr2)
