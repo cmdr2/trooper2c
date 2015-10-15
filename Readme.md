@@ -7,6 +7,7 @@ feel free to contribute or fork to create your own game for personal or commerci
 *note:* if you seriously intend to fork this for your own purposes, let me know so i can clean up the code a bit to make it easier to read.
 
 ## dev environment setup
+* get a Google Cardboard. either search on google for cheaper options in your country, or see this list of [viewers in US/EU](https://www.google.com/get/cardboard/get-cardboard/)
 * install [Unity 5.x](https://unity3d.com/get-unity/download) (free or pro)
 * `git clone git@github.com:cmdr2/trooper2c.git`
 * open the downloaded trooper2c project in Unity
