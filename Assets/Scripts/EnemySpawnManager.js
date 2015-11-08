@@ -195,6 +195,8 @@ function Awake() {
 	Physics.IgnoreLayerCollision(8, 8); // between Enemy
 	gameoverMysticalParticles.SetActive(false);
 	
+	Screen.sleepTimeout = SleepTimeout.NeverSleep;
+	
 	gaLogScreen("Splash");
 	
 	cam = GameObject.Find("Main Camera Right");
