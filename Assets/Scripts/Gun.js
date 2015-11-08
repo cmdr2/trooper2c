@@ -3,19 +3,21 @@
 static var instance : Gun;
 
 /* dependencies */
-var Score : GameObject;
-var Bullet : GameObject;
-var muzzleFlash : ParticleEmitter;
-var light1 : GameObject;
-var light2 : GameObject;
-var light3 : GameObject;
+public var Score : GameObject;
+public var Bullet : GameObject;
+public var muzzleFlash : ParticleEmitter;
+public var light1 : GameObject;
+public var light2 : GameObject;
+public var light3 : GameObject;
+public var googleAnalytics : GoogleAnalyticsV3;
 
-var googleAnalytics : GoogleAnalyticsV3;
 
 /* globals */
 //var fireRateF : float = 0.232 * 3; // ~4.3 shots per second x 3 bullets = ~12 bullets/sec
 private var fireRateF : float = 0.232 * 3; // ~4.3 shots per second x 3 bullets = ~12 bullets/sec
 private var minFireSoundDuration : float = 0.232 * 3; // seconds
+private var SIGHTLINE_DISTANCE : float = 30; // meters
+
 
 /* scratchpad */
 static var gameOver = false;
@@ -29,6 +31,7 @@ private var muzzleTimer : float = 0.0;
 private var muzzleCooler : float = 0.1;
 private var bulletQueueCount : int = 0;
 private var isFiring : boolean = false;
+
 
 function Awake() {
 	MuzzleFlash(false);

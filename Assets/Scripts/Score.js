@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-var scoreText : UI.Text;
+var scoreText : TextMesh;
 
 /* dependencies */
 var googleAnalytics : GoogleAnalyticsV3;
@@ -12,9 +12,9 @@ var score : int = 0;
 var levelScore : int = 0;
 var lives : int = 0;
 
-@script RequireComponent(UI.Text)
+@script RequireComponent(TextMesh)
 function Start () {
-	scoreText = GetComponent(UI.Text);
+	scoreText = GetComponent(TextMesh);
 //	instance = this;
 	Render();
 }

@@ -16,8 +16,8 @@ public var _Score : GameObject;
 public var endgameBloodSplatter : GameObject;
 public var _gameoverMysticalParticles : GameObject;
 public var introScreen : GameObject;
-public var controlsScreen : GameObject;
 public var victoryScreen : GameObject;
+public var _sightline : GameObject;
 
 public var _googleAnalytics : GoogleAnalyticsV3;
 
@@ -26,7 +26,7 @@ private static var BonusMessage : GameObject;
 private static var LevelTimerMessage : GameObject;
 private static var Score : GameObject;
 private static var gameoverMysticalParticles : GameObject;
-
+private static var sightline : GameObject;
 private static var googleAnalytics : GoogleAnalyticsV3;
 
 
@@ -40,6 +40,7 @@ private var initialScorePerEnemy : float = 6; // equal to enemy hitpoints
 private var spawnMonitorIntervalA = 1; // seconds
 private static var maxLives : int = 3;
 private static var PLAYER_FILE = "Player";
+private var MESSAGE_DISTANCE : float = 4.5f; // meters
 
 
 /* scratchpad */
@@ -68,6 +69,9 @@ private var isSpawning = 0;
 private var nextSpawnMonitorTime = 0;
 private var nextHealthCheckTime : float = -1;
 private var triggered : boolean = false;
+private var cam : GameObject;
+private var introScreen2 : GameObject;
+private var victoryScreen2 : GameObject;
 
 
 function GetLevelSpawnCount(levelNumber : int) {
@@ -187,10 +191,25 @@ function Awake() {
 	Score = _Score;
 	gameoverMysticalParticles = _gameoverMysticalParticles;
 	googleAnalytics = _googleAnalytics;
+	sightline = _sightline;
 	Physics.IgnoreLayerCollision(8, 8); // between Enemy
 	gameoverMysticalParticles.SetActive(false);
 	
 	gaLogScreen("Splash");
+	
+	cam = GameObject.Find("Main Camera Right");
+	if (cam) {
+		var ray : Ray = new Ray(cam.transform.position, cam.transform.forward);
+		introScreen.transform.position = ray.GetPoint(MESSAGE_DISTANCE);
+		introScreen.transform.LookAt(cam.transform.position);
+		introScreen.transform.RotateAround(introScreen.transform.position, introScreen.transform.up, 180);
+		
+		introScreen2 = Instantiate(introScreen);
+		var ray2 : Ray = new Ray(cam.transform.position, -cam.transform.forward);
+		introScreen2.transform.position = ray2.GetPoint(MESSAGE_DISTANCE);
+		introScreen2.transform.LookAt(cam.transform.position);
+		introScreen2.transform.RotateAround(introScreen2.transform.position, introScreen2.transform.up, 180);
+	}
 	
 	if (File.Exists(PLAYER_FILE)) {
 		var sr = new StreamReader(PLAYER_FILE);
@@ -241,18 +260,9 @@ function NewWave(newGame : boolean) {
 	
 	print("Starting countdown.. " + Time.time);
 	
-	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 3));
+	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level));
 	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [1]", true);
 	
-	yield WaitForSeconds(1);
-	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 2));
-	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [2]", true);
-	
-	yield WaitForSeconds(1);
-	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 1));
-	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [3]", true);
-	
-	yield WaitForSeconds(1);
 	if (LevelTimerMessage) LevelTimerMessage.SendMessage("Hide");
 	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [4]", true);
 	
@@ -361,6 +371,7 @@ function FixedUpdate () {
 			
 			if (level >= 14) { // won the game
 				gameOver = true;
+				sightline.SetActive(false);
 				gameInProgress = false;
 				lives = 0;
 				
@@ -370,6 +381,18 @@ function FixedUpdate () {
 				
 				// show victory screen
 				victoryScreen.SetActive(true);
+				if (cam) {
+					var ray : Ray = new Ray(cam.transform.position, cam.transform.forward);
+					victoryScreen.transform.position = ray.GetPoint(MESSAGE_DISTANCE);
+					victoryScreen.transform.LookAt(cam.transform.position);
+					victoryScreen.transform.RotateAround(victoryScreen.transform.position, victoryScreen.transform.up, 180);
+					
+					victoryScreen2 = Instantiate(victoryScreen);
+					var ray2 : Ray = new Ray(cam.transform.position, -cam.transform.forward);
+					victoryScreen2.transform.position = ray2.GetPoint(MESSAGE_DISTANCE);
+					victoryScreen2.transform.LookAt(cam.transform.position);
+					victoryScreen2.transform.RotateAround(victoryScreen2.transform.position, victoryScreen2.transform.up, 180);
+				}
 				
 				// analytics
 				gaLogScreen("Victory");
@@ -377,6 +400,7 @@ function FixedUpdate () {
 				// maybe play some music
 			} else {
 				gameInProgress = true;
+				sightline.SetActive(true);
 				NewWave(false);
 				print("Spawned new");
 			}
@@ -396,8 +420,12 @@ function Update() {
 
 	if (!gameInProgress && gameOver && triggered) { // restart game
 		gameInProgress = true;
+		sightline.SetActive(true);
 		
 		victoryScreen.SetActive(false);
+		if (victoryScreen2) {
+			victoryScreen2.SetActive(false);
+		}
 		endgameBloodSplatter.SetActive(false);
 		if (LevelTimerMessage) LevelTimerMessage.SendMessage("Hide");
 		else gaLogException("SpawnManager: Update(): LevelTimerMessage is null [1]", true);
@@ -431,17 +459,14 @@ function Update() {
 		}
 		
 		NewWave(true);
-	} else if (!gameInProgress && !gameStarted && triggered && !controlsScreen.active) { // show controls
-		// disable splash screen
-		introScreen.SetActive(false);
-		
-		controlsScreen.SetActive(true);
-		
-		gaLogScreen("Controls");
-	} else if (!gameInProgress && !gameStarted && triggered && controlsScreen.active) { // start game
+	} else if (!gameInProgress && !gameStarted && triggered) { // start game
 		gameInProgress = true;
+		sightline.SetActive(true);
 		
-		controlsScreen.SetActive(false);
+		introScreen.SetActive(false);
+		if (introScreen2) {
+			introScreen2.SetActive(false);
+		}
 		
 		// enable score, bonus and level
 		if (Score) Score.SetActive(true);
@@ -488,6 +513,7 @@ static function DestroyAllEnemies() {
 static function EndRound() {
 	if (!gameOver) {
 		gameOver = true;
+		sightline.SetActive(false);
 		gameInProgress = false;
 		lives--;
 		if (Score) Score.SendMessage("AddLives", -1);

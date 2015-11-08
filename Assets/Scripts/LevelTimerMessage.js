@@ -1,18 +1,23 @@
 ﻿#pragma strict
 
 /* dependencies */
-var endgameBloodSplatter : GameObject;
+public var endgameBloodSplatter : GameObject;
+public var googleAnalytics : GoogleAnalyticsV3;
 
-var googleAnalytics : GoogleAnalyticsV3;
-/* / */
 
-//static var instance : LevelTimerMessage;
-var levelMessageText : UI.Text;
+/* globals */
+private var MESSAGE_DISTANCE : float = 4.5f; // meters
 
-@script RequireComponent(UI.Text)
+
+/* scratchpad */
+private var levelMessageText : TextMesh;
+private var cam : GameObject;
+
+
+@script RequireComponent(TextMesh)
 function Start() {
-//	instance = this;
-	levelMessageText = GetComponent(UI.Text);
+	levelMessageText = GetComponent(TextMesh);
+	cam = GameObject.Find("Main Camera Right");
 	if (levelMessageText) levelMessageText.text = '';
 }
 
@@ -20,10 +25,14 @@ function Start() {
 countdownInfo = [ level : float, timeLeft : float ]
 */
 function ShowCountdown(countdownInfo : Array) {
+	SetPosition();
 	if (levelMessageText) {
 		var levelsLeft : int = countdownInfo[0];
 		var levelText = (levelsLeft > 1 ? levelsLeft + ' levels remaining.' : "Final level!\nDon't chicken out now.\n");
-		levelMessageText.text = levelText + "\nLevel starts in " + countdownInfo[1] + '..';
+		for (var i = 3; i >= 1; i--) {
+			levelMessageText.text = levelText + "\nLevel starts in " + i + '..';
+			yield WaitForSeconds(1);
+		}
 	} else if (googleAnalytics) {
 		googleAnalytics.LogException("LevelTimerMessage: ShowCountdown(): levelMessageText is null", true);
 	}
@@ -31,6 +40,7 @@ function ShowCountdown(countdownInfo : Array) {
 
 @script RequireComponent(AudioSource)
 function ShowRoundOver(gameover : boolean) {
+	SetPosition();
 	if (levelMessageText) {
 		if (Random.value > 0.5) {
 			levelMessageText.text = (gameover ? "You're zombie chow!\n\nFor guns 'n glory: pull trigger\nFor work and worry: escape" : "For guns 'n glory: pull trigger\nFor work and worry: escape");
@@ -49,6 +59,7 @@ function ShowRoundOver(gameover : boolean) {
 }
 
 function ShowMegaKill(killCount : int) {
+	SetPosition();
 	switch (killCount) {
 		case 1:
 			if (levelMessageText) levelMessageText.text = "Double Kill!";
@@ -73,6 +84,15 @@ function ShowMegaKill(killCount : int) {
 			yield WaitForSeconds(0.9);
 			Hide();
 	}
+}
+
+private function SetPosition() {
+	/*if (cam) {
+		var ray : Ray = new Ray(cam.transform.position, cam.transform.forward);
+		transform.position = ray.GetPoint(MESSAGE_DISTANCE);
+		transform.LookAt(cam.transform.position);
+		transform.RotateAround(transform.position, transform.up, 180);
+	}*/
 }
 
 function Hide() {
