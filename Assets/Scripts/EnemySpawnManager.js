@@ -11,6 +11,7 @@ public var Enemy : GameObject;
 public var BossEnemy : GameObject;
 public var MiniBossEnemy : GameObject;
 public var _BonusMessage : GameObject;
+public var LookBehindMessage : GameObject;
 public var _LevelTimerMessage : GameObject;
 public var _Score : GameObject;
 public var endgameBloodSplatter : GameObject;
@@ -193,6 +194,7 @@ function Awake() {
 	googleAnalytics = _googleAnalytics;
 	sightline = _sightline;
 	Physics.IgnoreLayerCollision(8, 8); // between Enemy
+	Physics.IgnoreLayerCollision(8, 10); // between Enemy and his hands
 	gameoverMysticalParticles.SetActive(false);
 	
 	Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -262,8 +264,20 @@ function NewWave(newGame : boolean) {
 	
 	print("Starting countdown.. " + Time.time);
 	
-	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level));
+	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 3));
 	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [1]", true);
+	
+	yield WaitForSeconds(1);
+	
+	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 2));
+	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [1]", true);
+	
+	yield WaitForSeconds(1);
+	
+	if (LevelTimerMessage) LevelTimerMessage.SendMessage("ShowCountdown", new Array(15 - level, 1));
+	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [1]", true);
+	
+	yield WaitForSeconds(1);
 	
 	if (LevelTimerMessage) LevelTimerMessage.SendMessage("Hide");
 	else gaLogException("SpawnManager: NewWave(): LevelTimerMessage is null [4]", true);
@@ -334,6 +348,11 @@ function NewWave(newGame : boolean) {
 	
 //		var avgFPS : int = parseInt(totalLevelFPS / totalLevelFrameCount);
 	gaLogScreen("Level " + level);
+	
+	if (level == 1) {
+		LookBehindMessage.SetActive(true);
+		HideLookBehindAfterTimeout();
+	}
 }
 
 function ApplyBonus() {
@@ -493,6 +512,11 @@ function Update() {
 		}
 		Application.Quit();
 	}
+}
+
+private function HideLookBehindAfterTimeout() {
+	yield WaitForSeconds(2);
+	LookBehindMessage.SetActive(false);
 }
 
 static function SetLevelScore(score : int) {

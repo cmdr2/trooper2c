@@ -28,11 +28,9 @@ function ShowCountdown(countdownInfo : Array) {
 	SetPosition();
 	if (levelMessageText) {
 		var levelsLeft : int = countdownInfo[0];
+		var timeLeft : int = countdownInfo[1];
 		var levelText = (levelsLeft > 1 ? levelsLeft + ' levels remaining.' : "Final level!\nDon't chicken out now.\n");
-		for (var i = 3; i >= 1; i--) {
-			levelMessageText.text = levelText + "\nLevel starts in " + i + '..';
-			yield WaitForSeconds(1);
-		}
+		levelMessageText.text = levelText + "\nLevel starts in " + timeLeft + '..';
 	} else if (googleAnalytics) {
 		googleAnalytics.LogException("LevelTimerMessage: ShowCountdown(): levelMessageText is null", true);
 	}

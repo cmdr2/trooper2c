@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 /* dependencies */
-var bloodSplatter : ParticleEmitter;
+public var bloodSplatter : ParticleEmitter;
 /* / */
 
 var maxHealth : int = 3;
