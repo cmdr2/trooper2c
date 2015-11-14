@@ -10,6 +10,7 @@ static var instance : EnemySpawnManager;
 public var Enemy : GameObject;
 public var BossEnemy : GameObject;
 public var MiniBossEnemy : GameObject;
+public var MegaBossEnemy : GameObject;
 public var _BonusMessage : GameObject;
 public var LookBehindMessage : GameObject;
 public var _LevelTimerMessage : GameObject;
@@ -121,7 +122,7 @@ function GetLevelSpawnRadius(levelNumber : int) {
 		case 4:
 			return Array("24", "34");
 		case 5:
-			return Array("25", "31");
+			return Array("24", "31");
 		case 6:
 			return Array("25", "31");
 		case 7:
@@ -314,7 +315,7 @@ function NewWave(newGame : boolean) {
 	}
 	
 	// spawn boss at farthest point in level 7
-	if (BossEnemy && (level == 7 || level == 14)) {
+	if (BossEnemy && level == 7) {
 		var bossAngle = Random.Range(0, 2 * Mathf.PI);
 		var bossPosition : Vector3 = Vector3(float.Parse(spawnRadius[1]) * Mathf.Cos(bossAngle), 10.3, float.Parse(spawnRadius[1]) * Mathf.Sin(bossAngle));
 		var boss : GameObject = Instantiate(BossEnemy, bossPosition, Quaternion.identity);
@@ -325,6 +326,21 @@ function NewWave(newGame : boolean) {
 		enemiesSpawnedThisWave++;
 		
 		if (enemies) enemies.Push(boss);
+		else gaLogException("SpawnManager: NewWave(): enemies is null [2]", true);
+	}
+	
+	// spawn megaboss at farthest point in level 14
+	if (MegaBossEnemy && level == 14) {
+		var megabossAngle = Random.Range(0, 2 * Mathf.PI);
+		var megabossPosition : Vector3 = Vector3(float.Parse(spawnRadius[1]) * Mathf.Cos(megabossAngle), 11, float.Parse(spawnRadius[1]) * Mathf.Sin(megabossAngle));
+		var megaboss : GameObject = Instantiate(MegaBossEnemy, megabossPosition, Quaternion.identity);
+		
+		if (megaboss) megaboss.SendMessage("SetBossMode");
+		else gaLogException("SpawnManager: NewWave(): boss is null", true);
+		
+		enemiesSpawnedThisWave++;
+		
+		if (enemies) enemies.Push(megaboss);
 		else gaLogException("SpawnManager: NewWave(): enemies is null [2]", true);
 	}
 	
