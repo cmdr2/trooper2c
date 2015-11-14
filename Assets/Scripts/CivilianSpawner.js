@@ -2,6 +2,9 @@
 
 /* dependencies */
 public var Civilian : GameObject;
+public var Civilian1 : GameObject;
+public var Civilian2 : GameObject;
+public var Civilian3 : GameObject;
 
 
 /* globals */
@@ -28,11 +31,11 @@ function Spawn() {
 		if (moveDir == 1) {
 			x = Random.Range(27, 35);
 		} else {
-			x = Random.Range(-85, -105);
+			x = Random.Range(-130, -165);
 		}
 		
 		var pos : Vector3 = Vector3(x, 2, Random.Range(-163, -219));
-		var civilian : GameObject = Instantiate(Civilian, pos, Quaternion.identity);
+		var civilian : GameObject = Instantiate(GetCivilian(), pos, Quaternion.identity);
 		civilian.SendMessage("SetMoveDir", moveDir);
 		civilian.transform.parent = transform;
 	}
@@ -44,15 +47,28 @@ function Spawn() {
 		}
 		x = 0;
 		if (moveDir == 1) {
-			x = Random.Range(75, 92);
+			x = Random.Range(92, 120);
 		} else {
 			x = Random.Range(-110, -130);
 		}
 		
 		pos = Vector3(x, 2, Random.Range(140, 167));
-		civilian = Instantiate(Civilian, pos, Quaternion.identity);
+		civilian = Instantiate(GetCivilian(), pos, Quaternion.identity);
 		civilian.SendMessage("SetMoveDir", moveDir);
 		civilian.transform.parent = transform;
+	}
+}
+
+function GetCivilian() {
+	var i = Mathf.FloorToInt(Random.Range(0, 4));
+	if (i == 0) {
+		return Civilian;
+	} else if (i == 1) {
+		return Civilian1;
+	} else if (i == 2) {
+		return Civilian2;
+	} else {
+		return Civilian3;
 	}
 }
 
