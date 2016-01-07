@@ -13,7 +13,7 @@
 namespace util {
 
 	public static class LogglyCredential {
-		public static string TOKEN = "8b00693f-dca4-421c-bfdf-b07a72196f62";
+		public static string TOKEN = "";
 	}
 
 }
