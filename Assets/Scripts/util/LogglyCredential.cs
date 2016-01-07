@@ -7,11 +7,13 @@
  * DO NOT REMOVE THIS FILE FROM THE .gitignore FILE OTHERWISE YOUR
  * LOGGLY PASSWORD/TOKEN WILL BE VISIBLE TO EVERYONE WITH SOURCE CODE ACCESS
  * !!
+ * 
+ * @author: cmdr2 <secondary.cmdr2@gmail.com>
  */
 namespace util {
 
 	public static class LogglyCredential {
-		public static string TOKEN = "";
+		public static string TOKEN = "8b00693f-dca4-421c-bfdf-b07a72196f62";
 	}
 
 }
