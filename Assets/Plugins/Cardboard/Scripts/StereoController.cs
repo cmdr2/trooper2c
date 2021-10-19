@@ -211,7 +211,7 @@ public class StereoController : MonoBehaviour {
       go.AddComponent<GUILayer>();
     }
     if (GetComponent("FlareLayer") != null) {
-      go.AddComponent("FlareLayer");
+      go.AddComponent<FlareLayer>();
     }
 #endif
     var cardboardEye = go.AddComponent<CardboardEye>();

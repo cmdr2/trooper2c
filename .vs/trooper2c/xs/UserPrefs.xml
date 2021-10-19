@@ -1,0 +1,30 @@
+﻿<Properties StartupConfiguration="{84EC89F4-F6C8-0213-FC8D-F0930B1BD61E}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/gamelogic/GameManager.js">
+    <Files>
+      <File FileName="Assets/Scripts/characters/Enemy.js" Line="42" Column="64" />
+      <File FileName="Assets/Scripts/weapons/Gun.js" Line="74" Column="41" />
+      <File FileName="Assets/Scripts/gamelogic/GameManager.js" Line="181" Column="18" />
+      <File FileName="Assets/Scripts/characters/EnemySpawnManager.js" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="trooper2c" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.trooper2c PreferredExecutionTarget="e889c05c-9747-4a31-931e-3dd81f27ac89" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>Assembly-CSharp-firstpass.csproj</String>
+    <String>Assembly-CSharp-Editor-firstpass.csproj</String>
+    <String>Assembly-CSharp-Editor.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e889c05c-9747-4a31-931e-3dd81f27ac89" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

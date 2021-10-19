@@ -5,7 +5,7 @@
  */
 
 /* dependencies */
-public var bloodSplatter : ParticleEmitter;
+public var bloodSplatter : ParticleSystem;
 
 
 /* globals */
@@ -35,7 +35,7 @@ function Start () {
 	
 	nextMoveTime = Time.time;
 	
-	if (bloodSplatter) bloodSplatter.emit = false;
+	if (bloodSplatter) bloodSplatter.Stop();// = false;
 	
 	var audioSources : Component[] = GetComponents(AudioSource);
 	groanAudio = getPriorityAudio(audioSources, GROAN_AUDIO_PRIORITY);
@@ -136,9 +136,9 @@ public function OnBulletHit(bulletInfo : Array) {
 			// show blood splatter out from impact
 			if (bloodSplatter) {
 				bloodSplatter.transform.position = point;
-				bloodSplatter.Emit();
+				bloodSplatter.Emit(1000);
 				yield WaitForSeconds(0.03);
-				bloodSplatter.emit = false;
+				bloodSplatter.Stop();//emit = false;
 			}
 		}
 	}

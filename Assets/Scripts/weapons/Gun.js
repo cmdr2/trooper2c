@@ -8,7 +8,7 @@ private static var instance : Gun;
 
 /* dependencies */
 public var Bullet : GameObject;
-public var muzzleFlash : ParticleEmitter;
+public var muzzleFlash : ParticleSystem;
 public var light1 : GameObject;
 public var light2 : GameObject;
 public var light3 : GameObject;
@@ -69,9 +69,9 @@ function Update () {
 
 private function MuzzleFlash(on : boolean) {
 	if (on) {
-		if (muzzleFlash) muzzleFlash.Emit();
+		if (muzzleFlash) muzzleFlash.Emit(100);
 	} else {
-		if (muzzleFlash) muzzleFlash.emit = false;
+		if (muzzleFlash) muzzleFlash.Stop();// = false;
 	}
 	if (light1) light1.SetActive(on);
 	if (light2) light2.SetActive(on);
