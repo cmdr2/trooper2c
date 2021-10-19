@@ -70,7 +70,7 @@ public partial class EnemySpawnManager : MonoBehaviour
             while (i <= enemyCount)
             {
                 float radius = Random.Range(spawnRadius[0], spawnRadius[1]);
-                int sector = UnityScript.Lang.UnityBuiltins.parseInt((i * 4) / enemyCount) + 1;
+                int sector = (int)((i * 4) / enemyCount) + 1;
                 float angle = Random.Range(((sector - 1) * Mathf.PI) / 2, (sector * Mathf.PI) / 2);
                 Vector3 position = new Vector3(radius * Mathf.Cos(angle), 1.3f, radius * Mathf.Sin(angle));
                 Quaternion rotation = Quaternion.identity;
