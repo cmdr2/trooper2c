@@ -10,7 +10,7 @@ public var bloodSplatter : ParticleSystem;
 
 /* globals */
 private static var MAX_HEALTH : int = 3;
-private static var BOSS_MAX_HEALTH : int = 60;
+private static var BOSS_MAX_HEALTH : int = 40;
 private static var MINIBOSS_MAX_HEALTH : int = 20;
 private static var GROAN_AUDIO_PRIORITY : int = 3;
 private static var DIE_AUDIO_PRIORITY : int = 4;
