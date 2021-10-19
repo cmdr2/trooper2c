@@ -5,6 +5,7 @@ Temp/
 *.sln
 *.userprefs
 Library
+*.vs/
 
 # DO NOT REMOVE! YOUR PASSWORD WILL GET CHECKED IN, IF YOU REMOVE THE LINE BELOW
 #**/LogglyCredential.cs
